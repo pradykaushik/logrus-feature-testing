@@ -34,16 +34,8 @@ func (w *MyIOWriter) Write(p []byte) (n int, err error) {
 	return w.writer.Write(p)
 }
 
-func SensitiveFieldsTest(t *testing.T) {
-	// Testing whether tagging struct fields with '-' ignores them when marshaling.
-	type User struct {
-		Username  string `json:"username"`
-		Password  string `json:"-"` // Note that '-' will make json marshaler completely ignore this field.
-		Email     string `json:"email"`
-		FirstName string `json:"first-name"`
-		LastName  string `json:"last-name"`
-	}
-
+// Testing whether tagging struct fields with '-' ignores them when marshaling.
+func TestSensitiveFieldsUser(t *testing.T) {
 	// Creating a user.
 	user := &User{
 		Username:     "johndoe",
